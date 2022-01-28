@@ -17,10 +17,6 @@ export VIRTUALBOX_VERSION="6.1.30r148432"
 export PACKER_VERSION="1.7.9"
 export VAGRANT_VERSION="2.2.19"
 
-# Set the Vagrant cloud user and box name (make sure you have admin permissions to, or are the owner of this repository)
-export VAGRANT_CLOUD_BOX_USER="oliver042"
-export VAGRANT_CLOUD_BOX_NAME="ubuntu2004"
-
 # ############################################################################################## #
 # Below this point there should be no need to edit anything, unless you know what you are doing! #
 # ############################################################################################## #
@@ -55,69 +51,10 @@ fi
 
 echo "All required tools found. Continuing."
 
-# Check if a build.env file is present, and if so: source it
-if [ -f build.env ]
-then
-    source build.env
-fi
-
-# Check if the variables VAGRANT_CLOUD_USER and VAGRANT_CLOUD_TOKEN have been set, if not ask for them
-if [ -z "$DEFAULT_VAGRANT_CLOUD_USER" -o -z "$DEFAULT_VAGRANT_CLOUD_TOKEN" ]
-then
-    # Ask user for vagrant cloud token
-    echo -n "What is your Vagrant Cloud username? [oliver042] "
-    read user
-    user=${user:-oliver042}
-    export VAGRANT_CLOUD_USER=${user}
-
-    # Ask user for vagrant cloud token
-    echo -n "What is your Vagrant Cloud token? "
-    read -s token
-    echo ""
-    export VAGRANT_CLOUD_TOKEN=${token}
-else
-    export VAGRANT_CLOUD_USER=$DEFAULT_VAGRANT_CLOUD_USER
-    export VAGRANT_CLOUD_TOKEN=$DEFAULT_VAGRANT_CLOUD_TOKEN
-
-    echo "Your vagrant cloud user and token have been sourced from file build.env"
-fi
-
-# Export dynamic versioning info
-commit=$(git --no-pager log -n 1 --format="%H")
-export BOX_VERSION_DESCRIPTION="
-## Description
-This base box is based on a clean Ubuntu 20.04 minimal install.
-
-The box defaults to 2 CPUs and 4GB of RAM.
-
----
-
-## Versions included in this release
-* Latest OS updates installed at build time
-* ansible ${ANSIBLE_VERSION}
-* VirtualBox guest additions ${VBOXADD_VERSION}
-
----
-
-$(cat CHANGELOG.md)
-
----
-
-## Source info
-[View source on Github](https://github.com/oliver042/vagrant-base-box)
-
-Built on commit: \`${commit}\`
-"
-
-echo "${BOX_VERSION_DESCRIPTION}"
-
 # Validate build config
 echo "Validating build json files"
-packer validate ubuntults.json
+packer validate ubuntults-nocloud.json
 
 # Run the actual build
 echo "Building box version ${BOX_VERSION}"
-packer build -force -on-error=cleanup ubuntults.json
-
-# Tag git commit for this build
-git tag -a "${BOX_VERSION}" -m "Version ${BOX_VERSION} built."
+packer build -force -on-error=cleanup ubuntults-nocloud.json

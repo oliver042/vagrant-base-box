@@ -14,10 +14,10 @@ To be able to build the box yourself, you'll need at least following tools insta
 * [Packer](https://www.packer.io/) (tested with version 1.7.9)
 * [Vagrant](https://www.vagrantup.com/) (tested with version 2.2.19)
 
-The build wil be uploaded to Vagrant Cloud, so you'll need an account and corresponding token there. On top of that, the box has to be pre-created for the upload to succeed.
+The build wil be uploaded to Vagrant Cloud, so you'll need an account and corresponding token there. On top of that, the box has to be pre-created for the upload to succeed (box can be created here [Create box](https://app.vagrantup.com/boxes/new)).
 
 ## Usage
-1. Make sure you have a Vagrant Cloud account with an authentication token. You need to have "admin" access to the [Vagrant Cloud box](https://app.vagrantup.com/oliver042/boxes/ubuntu2004), or you need to be the owner of the box for the upload to work automatically (box can be created here [Create box](https://app.vagrantup.com/boxes/new)). The authentication token can be created via [`Account settings -> Security`](https://app.vagrantup.com/settings/security). You can enter the username and token when requested by the `build.sh` script (but you will need to do this every time when creating a new build), or you can create a file `build.env` in the root of this repository where you set the variables as follows:
+1. Make sure you have a Vagrant Cloud account with an authentication token. You need to have "admin" access to the [Vagrant Cloud box](https://app.vagrantup.com/oliver042/boxes/ubuntu2004), or you need to be the owner of the box for the upload to work automatically. The authentication token can be created via [`Account settings -> Security`](https://app.vagrantup.com/settings/security). You can enter the username and token when requested by the `build.sh` script (but you will need to do this every time when creating a new build), or you can create a file `build.env` in the root of this repository where you set the variables as follows:
 
 ```
 DEFAULT_VAGRANT_CLOUD_USER="your.username"
