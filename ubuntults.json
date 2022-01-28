@@ -26,7 +26,7 @@
         "<enter>"
       ],
       "boot_wait": "5s",
-      "disk_size": 81920,
+      "disk_size": 40960,
       "guest_os_type": "Ubuntu_64",
       "headless": true,
       "http_directory": "http",
@@ -54,13 +54,13 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "8192"
+          "4096"
         ],
         [
           "modifyvm",
           "{{.Name}}",
           "--cpus",
-          "4"
+          "2"
         ]
       ]
     }

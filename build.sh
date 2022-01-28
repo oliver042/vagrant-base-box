@@ -88,7 +88,7 @@ export BOX_VERSION_DESCRIPTION="
 ## Description
 This base box is based on a clean Ubuntu 20.04 minimal install.
 
-The box defaults to 1 CPU and 1GB of RAM, it is not advised to limit this.
+The box defaults to 2 CPUs and 4GB of RAM.
 
 ---
 
